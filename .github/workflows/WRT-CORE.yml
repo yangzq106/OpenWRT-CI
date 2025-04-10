@@ -83,7 +83,7 @@ jobs:
 
       - name: Initialization Values
         run: |
-          echo "WRT_DATE=$(TZ=UTC-8 date +"%y.%m.%d_%H.%M.%S")" >> $GITHUB_ENV
+          echo "WRT_DATE=$(TZ=UTC-8 date +"%y.%m.%d")" >> $GITHUB_ENV
           echo "WRT_MARK=$(echo $GITHUB_REPOSITORY | cut -d '/' -f 1)" >> $GITHUB_ENV
           echo "WRT_VER=$(echo $WRT_REPO | cut -d '/' -f 5-)-$WRT_BRANCH" >> $GITHUB_ENV
           echo "WRT_TARGET=$(grep -m 1 -oP '^CONFIG_TARGET_\K[\w]+(?=\=y)' ./Config/$WRT_CONFIG.txt | tr '[:lower:]' '[:upper:]')" >> $GITHUB_ENV
@@ -219,7 +219,7 @@ jobs:
       - name: Release Firmware
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{env.WRT_CONFIG}}_${{env.WRT_VER}}_${{env.WRT_DATE}}
+          tag_name: ${{env.WRT_CONFIG}}_${{env.WRT_DATE}}
           files: ./wrt/upload/*.*
           body: |
             这是个平台固件包，内含多个设备！
